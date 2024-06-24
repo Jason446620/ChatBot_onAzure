@@ -109,9 +109,9 @@ def flask_app(host=None, port=None):
     sslmode = "require"
  
   
-   #  --------------------  INITIATE AZURE POSTGRESQL DATABASE  -----------------
+   #  --------------------  INITIATE POSTGRESQL DATABASE Azure -----------------
 
-   
+
   def check_environment_variables():
     # Check and log the values of the environment variables
     app.logger.info("HOST_ environment variable: %s", os.environ.get("HOST_AZURESQL"))
