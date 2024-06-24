@@ -91,6 +91,8 @@ def flask_app(host=None, port=None):
 
   # db.init_app(app)
 
+  #-----------  DEVELOPEMENT OR PORDUCTION   -----------------------
+
   if os.getenv("FLASK_ENV") == "development":
     
     host = os.environ.get("HOST_AZURESQL")
@@ -107,7 +109,9 @@ def flask_app(host=None, port=None):
     sslmode = "require"
  
   
+   #  --------------------  INITIATE AZURE POSTGRESQL DATABASE  -----------------
 
+   
   def check_environment_variables():
     # Check and log the values of the environment variables
     app.logger.info("HOST_ environment variable: %s", os.environ.get("HOST_AZURESQL"))
@@ -134,10 +138,15 @@ def flask_app(host=None, port=None):
     return ip_address
 
   app.secret_key = os.getenv('FLASK_SECRET_KEY', os.urandom(24))
+
+  #  --------------------  INITIATE FLASHRANK  -----------------
+
+
   if os.getenv("FLASK_ENV") == "development":
     ranker = Ranker()
   else:
     ranker = Ranker(model_name="ms-marco-MiniLM-L-12-v2", cache_dir="/opt")
+
   class RerankRequest:
 
     def __init__(self, query=None, passages=None):
